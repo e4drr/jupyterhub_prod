@@ -19,7 +19,7 @@ imagePullSecret:
   create: false
   automaticReferenceInjection: true
   registry:
-  username: d
+  username: 
   password:
   email:
 # imagePullSecrets is configuration to reference the k8s Secret resources the
@@ -425,7 +425,7 @@ singleuser:
       subPath:
   image:
     name: us-east1-docker.pkg.dev/e4drr-crafd/jupyterhub/jupyterhub
-    tag: "v1"
+    tag: "v111"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300
