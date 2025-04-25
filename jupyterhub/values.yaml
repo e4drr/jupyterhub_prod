@@ -19,7 +19,7 @@ imagePullSecret:
   create: false
   automaticReferenceInjection: true
   registry:
-  username:
+  username: d
   password:
   email:
 # imagePullSecrets is configuration to reference the k8s Secret resources the
