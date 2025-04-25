@@ -15,6 +15,7 @@ custom: {}
 # imagePullSecret is configuration to create a k8s Secret that Helm chart's pods
 # can get credentials from to pull their images.
 imagePullSecret:
+  name: my-secret
   create: false
   automaticReferenceInjection: true
   registry:
@@ -423,7 +424,7 @@ singleuser:
       storageAccessModes: [ReadWriteOnce]
       subPath:
   image:
-    name: registry.hub.docker.com/blank925/juypterhub_prod
+    name: us-east1-docker.pkg.dev/e4drr-crafd/jupyterhub/jupyterhub
     tag: "v1"
     pullPolicy:
     pullSecrets: []
