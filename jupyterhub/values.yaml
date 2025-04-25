@@ -425,7 +425,7 @@ singleuser:
       subPath:
   image:
     name: us-east1-docker.pkg.dev/e4drr-crafd/jupyterhub/jupyterhub
-    tag: "v111"
+    tag: "v1"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300
