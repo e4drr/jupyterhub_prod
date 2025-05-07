@@ -37,6 +37,8 @@ hub:
     JupyterHub:
       admin_access: true
       authenticator_class: github
+      admin_users:
+        - nishadhka  
     GitHubOAuthenticator:
       client_id: "Ov23li0XUibPdVlUsKgI" # You can put the client ID here, or from the secret
       client_secret: "457297dc3ca004299ca723cff7e898c390741de4"
@@ -94,7 +96,13 @@ hub:
     tag: "4.1.0"
     pullPolicy:
     pullSecrets: []
-  resources: {}
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
   podSecurityContext:
     runAsNonRoot: true
     fsGroup: 1000
@@ -732,10 +740,11 @@ cull:
   users: false # --cull-users
   adminUsers: true # --cull-admin-users
   removeNamedServers: false # --remove-named-servers
-  timeout: 3600 # --timeout
-  every: 600 # --cull-every
+  timeout: 1800 # --timeout
+  every: 300 # --cull-every
   concurrency: 10 # --concurrency
-  maxAge: 0 # --max-age
+  maxAge: 3600 # --max-age
+  users: true    # Cull users too
 
 debug:
   enabled: false
