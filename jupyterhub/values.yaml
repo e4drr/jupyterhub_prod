@@ -37,13 +37,16 @@ hub:
     JupyterHub:
       admin_access: true
       authenticator_class: github
-      admin_users:
-        - nishadhka  
     GitHubOAuthenticator:
       client_id: "Ov23li0XUibPdVlUsKgI" # You can put the client ID here, or from the secret
       client_secret: "457297dc3ca004299ca723cff7e898c390741de4"
       oauth_callback_url: "https://jupyterhub.e4drr-cloud.work/hub/oauth_callback"
       allow_all: True
+    KubeSpawner:
+      working_dir: /home/mambauser
+      uid: 1000
+      gid: 100
+      fs_gid: 100
   service:
     type: ClusterIP
     annotations: {}
@@ -96,13 +99,7 @@ hub:
     tag: "4.1.0"
     pullPolicy:
     pullSecrets: []
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "100m"
-    limits:
-      memory: "512Mi"
-      cpu: "500m"
+  resources: {}
   podSecurityContext:
     runAsNonRoot: true
     fsGroup: 1000
@@ -172,6 +169,12 @@ rbac:
 # proxy relates to the proxy pod, the proxy-public service, and the autohttps
 # pod and proxy-http service.
 proxy:
+  https:
+    enabled: true
+    hosts:
+      - jupyterhub.e4drr-cloud.work
+    letsencrypt:
+      contactEmail: abdulhaisss925@gmail.com
   secretToken:
   annotations: {}
   deploymentStrategy:
@@ -412,8 +415,6 @@ singleuser:
   initContainers: []
   extraContainers: []
   allowPrivilegeEscalation: false
-  uid: 1000
-  fsGid: 100
   serviceAccountName:
   storage:
     type: dynamic
@@ -423,8 +424,8 @@ singleuser:
     static:
       pvcName:
       subPath: "{username}"
-    capacity: 100Mi
-    homeMountPath: /home/jovyan
+    capacity: 10Gi
+    homeMountPath: /home/mambauser
     dynamic:
       storageClass:
       pvcNameTemplate:
@@ -436,6 +437,7 @@ singleuser:
     tag: "v1"
     pullPolicy:
     pullSecrets: []
+  lifecycleHooks: {}
   startTimeout: 300
   cpu:
     limit:
@@ -740,11 +742,10 @@ cull:
   users: false # --cull-users
   adminUsers: true # --cull-admin-users
   removeNamedServers: false # --remove-named-servers
-  timeout: 1800 # --timeout
-  every: 300 # --cull-every
+  timeout: 3600 # --timeout
+  every: 600 # --cull-every
   concurrency: 10 # --concurrency
-  maxAge: 3600 # --max-age
-  users: true    # Cull users too
+  maxAge: 0 # --max-age
 
 debug:
   enabled: false
